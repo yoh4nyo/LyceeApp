@@ -18,13 +18,22 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerTitleStyle: {
+          fontFamily: "Poppins_700Bold",
+        },
+        headerBackTitleStyle: {
+          fontFamily: "Poppins_400Regular",
+        },
+      }}
+    >
       <Stack.Screen name="index" options={{ title: "Accueil" }} />
-      <Stack.Screen name="creteil" options={{ title: "Creteil" }} />
-      <Stack.Screen name="lycee_paris_prive" options={{ title: "Prives" }} />
+      <Stack.Screen name="creteil" options={{ title: "Créteil" }} />
+      <Stack.Screen name="lycee_paris_prive" options={{ title: "Privés" }} />
       <Stack.Screen name="nbr_type" options={{ title: "Types" }} />
       <Stack.Screen name="versailles_mail_lycee" options={{ title: "Versailles" }} />
-      <Stack.Screen name="nbr_paris_lycee" options={{ title: "Academies" }} />
+      <Stack.Screen name="nbr_paris_lycee" options={{ title: "Académies" }} />
     </Stack>
   );
 }

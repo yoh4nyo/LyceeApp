@@ -14,15 +14,19 @@ export default function Creteil() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Lycées de l'académie de Créteil</Text>
       <FlatList
         data={creteilLycees}
         keyExtractor={(item) => item.code_uai}
+        contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={styles.name}>{item.nom_etablissement}</Text>
+          <View style={styles.card}>
+            <View style={styles.header}>
+              <Text style={styles.name}>{item.nom_etablissement}</Text>
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>{item.statut}</Text>
+              </View>
+            </View>
             <Text style={styles.meta}>{item.libelle}</Text>
-            <Text style={styles.meta}>{item.statut}</Text>
           </View>
         )}
       />
@@ -33,27 +37,52 @@ export default function Creteil() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#F5F7FA",
+  },
+  listContent: {
     padding: 16,
-    backgroundColor: "#f7f7f7",
+    gap: 16,
   },
-  title: {
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 12,
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
-  item: {
-    backgroundColor: "#fff",
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "#e3e3e3",
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: 8,
   },
   name: {
     fontSize: 16,
-    fontWeight: "500",
+    fontFamily: "Poppins_600SemiBold",
+    color: "#333333",
+    flex: 1,
+    marginRight: 8,
   },
   meta: {
-    color: "#666",
+    fontSize: 14,
+    color: "#666666",
+    fontFamily: "Poppins_400Regular",
+  },
+  badge: {
+    backgroundColor: "rgba(74, 144, 226, 0.2)",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  badgeText: {
+    color: "#4A90E2",
+    fontSize: 12,
+    fontFamily: "Poppins_600SemiBold",
   },
 });

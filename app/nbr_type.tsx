@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import lyceesData from "../data/data_lycee.json";
 
 const types = ["LP PR", "LPO", "LGT"];
@@ -17,43 +17,67 @@ export default function NbrType() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Nombre de lycée par type</Text>
-      {counts.map((item) => (
-        <View key={item.type} style={styles.row}>
-          <Text style={styles.label}>{item.type}</Text>
-          <Text style={styles.value}>{item.count}</Text>
-        </View>
-      ))}
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.headerTitle}>Nombre par Type</Text>
+      <View style={styles.grid}>
+        {counts.map((item) => (
+          <View key={item.type} style={styles.card}>
+            <Text style={styles.value}>{item.count}</Text>
+            <Text style={styles.label}>{item.type}</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
-    gap: 12,
-    backgroundColor: "#f7f7f7",
+    flexGrow: 1,
+    padding: 24,
+    backgroundColor: "#F5F7FA",
+    alignItems: "center",
   },
-  title: {
-    fontSize: 22,
-    fontWeight: "700",
+  headerTitle: {
+    fontSize: 20,
+    fontFamily: "Poppins_700Bold",
+    color: "#333333",
+    marginBottom: 24,
   },
-  row: {
+  grid: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 12,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#e3e3e3",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 16,
+    width: "100%",
+  },
+  card: {
+    width: "45%",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    padding: 24,
+    alignItems: "center",
+    justifyContent: "center",
+    aspectRatio: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  value: {
+    fontSize: 32,
+    fontFamily: "Poppins_700Bold",
+    color: "#4A90E2",
+    marginBottom: 4,
   },
   label: {
     fontSize: 16,
-  },
-  value: {
-    fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Poppins_600SemiBold",
+    color: "#666666",
+    textAlign: "center",
   },
 });

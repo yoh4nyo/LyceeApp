@@ -1,5 +1,6 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import lyceesData from "../data/data_lycee.json";
 
 export default function VersaillesMails() {
@@ -12,16 +13,23 @@ export default function VersaillesMails() {
     setVersaillesMails(data);
   }, []);
 
+  const handlePressMail = (email: string) => {
+    Linking.openURL(`mailto:${email}`);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Mails de chaque lycée de l'académie de Versailles</Text>
       <FlatList
         data={versaillesMails}
         keyExtractor={(item) => item.code_uai}
+        contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
-          <View style={styles.item}>
+          <View style={styles.card}>
             <Text style={styles.name}>{item.nom_etablissement}</Text>
-            <Text style={styles.mail}>{item.mail}</Text>
+            <TouchableOpacity onPress={() => handlePressMail(item.mail)} style={styles.mailContainer}>
+              <Ionicons name="mail-outline" size={16} color="#4A90E2" style={{ marginRight: 8 }} />
+              <Text style={styles.mail}>{item.mail}</Text>
+            </TouchableOpacity>
           </View>
         )}
       />
@@ -32,27 +40,38 @@ export default function VersaillesMails() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#F5F7FA",
+  },
+  listContent: {
     padding: 16,
-    backgroundColor: "#f7f7f7",
+    gap: 16,
   },
-  title: {
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 12,
-  },
-  item: {
-    backgroundColor: "#fff",
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "#e3e3e3",
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
   name: {
     fontSize: 16,
-    fontWeight: "500",
+    fontFamily: "Poppins_600SemiBold",
+    color: "#333333",
+    marginBottom: 8,
+  },
+  mailContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   mail: {
-    color: "#444",
+    color: "#4A90E2",
+    fontFamily: "Poppins_400Regular",
+    fontSize: 14,
   },
 });
